@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matascon <matascon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/29 12:41:48 by matascon          #+#    #+#             */
-/*   Updated: 2020/06/29 12:41:49 by matascon         ###   ########.fr       */
+/*   Created: 2020/06/29 12:16:18 by matascon          #+#    #+#             */
+/*   Updated: 2020/06/29 12:16:20 by matascon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static int	error(char **line, int n_bytes)
 {
 	if (n_bytes < 0)
 		return (-1);
-	*line = ft_strdup("");
+	*line = ft_strsdup("", 0);
 	return (0);
 }
 
@@ -35,7 +35,7 @@ static int	copy_line(char **line, char **text, int fd)
 	ft_strlcpy(*line, text[fd], i + 1);
 	if (aux)
 	{
-		aux = ft_strdup(aux + 1);
+		aux = ft_strsdup(aux + 1, 0);
 		free(text[fd]);
 		text[fd] = aux;
 		return (1);
@@ -58,9 +58,9 @@ int			get_next_line(int fd, char **line)
 	{
 		buffer[n_bytes] = '\0';
 		if (!text[fd])
-			text[fd] = ft_strdup(buffer);
+			text[fd] = ft_strsdup(buffer, 0);
 		else
-			text[fd] = ft_strjoin(text[fd], buffer);
+			text[fd] = ft_strsjoin(text[fd], buffer, 1, 0);
 		if (ft_strchr(text[fd], '\n'))
 			break ;
 	}

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matascon <matascon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/29 12:41:59 by matascon          #+#    #+#             */
-/*   Updated: 2020/06/29 12:41:59 by matascon         ###   ########.fr       */
+/*   Created: 2020/06/29 12:16:32 by matascon          #+#    #+#             */
+/*   Updated: 2020/06/29 12:16:34 by matascon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t n)
 {
@@ -61,7 +61,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	return (dest_length + src_length);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strsjoin(char *s1, char *s2, int free_s1, int free_s2)
 {
 	size_t	size;
 	int		s1_length;
@@ -82,6 +82,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	ft_strlcpy(ptr, s1, s1_length + 1);
 	ft_strlcat(ptr, s2, size + 1);
+	if (free_s1)
+		free(s1);
+	if (free_s2)
+		free(s2);
 	return (ptr);
 }
 
@@ -104,7 +108,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strsdup(char *s, int free_str)
 {
 	int		length;
 	int		i;
@@ -120,5 +124,7 @@ char	*ft_strdup(const char *s)
 	while (++i < length)
 		ptr[i] = s[i];
 	ptr[i] = '\0';
+	if (free_str)
+		free(s);
 	return (ptr);
 }
